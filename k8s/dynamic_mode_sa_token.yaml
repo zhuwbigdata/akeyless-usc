@@ -24,6 +24,9 @@ rules:
 - apiGroups: [""]
   resources: ["pods"]
   verbs: ["list"]
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["*"]  
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -44,5 +47,5 @@ metadata:
   name: akeyless-jit-token
   namespace: waynez
   annotations:
-    kubernetes.io/service-account.name: takeyless-jit
+    kubernetes.io/service-account.name: akeyless-jit
 type: kubernetes.io/service-account-token
