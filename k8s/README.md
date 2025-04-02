@@ -22,7 +22,7 @@ clusterrole.rbac.authorization.k8s.io/sa-request created
 clusterrolebinding.rbac.authorization.k8s.io/sa-request created
 secret/akeyless-jit-token created
 
-DYNAMIC_SA_JWT_TOKEN=$(kubectl get secret token-request-sa-token -n waynez \
+DYNAMIC_SA_JWT_TOKEN=$(kubectl get secret akeyless-jit-token  -n waynez \
   --output 'go-template={{.data.token | base64decode}}')
 ```
 
