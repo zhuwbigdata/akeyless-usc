@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: token-request-sa
+  namespace: waynez
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: tokenrequest
+rules:
+- apiGroups: [""]
+  resources:
+  - "serviceaccounts/token"
+  - "serviceaccounts"
+  verbs:
+  - "create"
+  - "get"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: tokenrequest
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: tokenrequest
+subjects:
+- kind: ServiceAccount
+  name: token-request-sa
+  namespace: waynez
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: token-request-sa-token
+  namespace: waynez
+  annotations:
+    kubernetes.io/service-account.name: token-request-sa
+type: kubernetes.io/service-account-token
